@@ -26,8 +26,6 @@ def main(input_file):
     assert fuel_need(1969) == 654
     assert fuel_need(100756) == 33583
 
-    sum_ = 0
-
     all_fuels = []
 
     with open(input_file, 'r') as rd:
@@ -35,13 +33,12 @@ def main(input_file):
             num = int(line)
             fuel = fuel_need(num)
             all_fuels.append(fuel)
-            sum_ += fuel
 
-    print("Fuel need:", sum_)
+    print("Fuel need:", sum(all_fuels))
 
     additional_fuels = [reduced_fuel_need(x) for x in all_fuels]
 
-    print("Fuel need w/ fuel:", sum_ + sum(additional_fuels))
+    print("Fuel need w/ fuel:", sum(all_fuels) + sum(additional_fuels))
 
 
 if __name__ == "__main__":
