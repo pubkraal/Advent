@@ -52,11 +52,14 @@ def main(inputfile):
         program = parse_program(rd.read())
 
     orig = program[::]
+    # Hardcoded values
+    program[1] = 12
+    program[2] = 2
     result = execute_program(program)
     print("Challenge one:", result[0])
 
     # Find combination that yields 19690720
-    for idx, comb in enumerate(product(range(100), repeat=2)):
+    for comb in product(range(100), repeat=2):
         try_prog = orig[::]
         try_prog[1] = comb[0]
         try_prog[2] = comb[1]
