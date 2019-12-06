@@ -26,7 +26,6 @@ class Body:
         orbits = steps_from_root
         for child in self.children:
             orbits += child.get_sub_orbits(steps_from_root + 1)
-        print("Orbits for", self.name, "are:", orbits)
         return orbits
 
     def get_sup_orbits(self):
@@ -76,11 +75,13 @@ def main(inputfile):
     youp = nodes["YOU"].get_path_to_root()[::-1]
     sanp = nodes["SAN"].get_path_to_root()[::-1]
 
-    # Find last matching node, add lists together, len(), -3. I did it manually
+    youp.pop()
+    sanp.pop()
 
-    print("Two-a:", youp)
-    print("Two-b:", sanp)
-    print("Two:", 0)
+    while sanp[0] == youp[0]:
+        sanp.pop(0)
+        youp.pop(0)
+    print("Two:", len(sanp) + len(youp))
 
 
 if __name__ == "__main__":
