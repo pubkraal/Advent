@@ -3,12 +3,6 @@ import os
 import sys
 from collections import defaultdict
 
-# Slow way: determine parents for every node
-# Fast way: determine children going down and reduce the total score
-# I'm taking the slow way
-def get_orbits_for_node(tree, node):
-    return 1
-
 
 class Body:
     def __init__(self, name, parent):
@@ -27,9 +21,6 @@ class Body:
         for child in self.children:
             orbits += child.get_sub_orbits(steps_from_root + 1)
         return orbits
-
-    def get_sup_orbits(self):
-        return 1
 
     def get_path_to_root(self):
         path = [self.name]
