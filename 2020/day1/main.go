@@ -57,6 +57,7 @@ func main() {
 		for _, combi := range combis {
 			if sum(combi...) == 2020 {
 				fmt.Println("For size", size, "product is", prod(combi...))
+				break
 			}
 		}
 	}
