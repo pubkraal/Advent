@@ -53,8 +53,8 @@ func main() {
 	}
 
 	for _, size := range []int{2, 3} {
-		combis := util.Combinations(numbers, size)
-		for _, combi := range combis {
+		combis := util.ChannelCombinations(numbers, size)
+		for combi := range combis {
 			if sum(combi...) == 2020 {
 				fmt.Println("For size", size, "product is", prod(combi...))
 				break
