@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/pubkraal/Advent/2020/util"
 )
 
 func getNumbers(filename string) ([]int, error) {
@@ -28,23 +30,34 @@ func getNumbers(filename string) ([]int, error) {
 	return numbers, nil
 }
 
+func sum(nums ...int) int {
+	total := 0
+	for _, num := range nums {
+		total += num
+	}
+	return total
+}
+
+func prod(nums ...int) int {
+	total := 1
+	for _, num := range nums {
+		total *= num
+	}
+	return total
+}
+
 func main() {
 	numbers, err := getNumbers("input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	for _, num1 := range numbers {
-		for _, num2 := range numbers {
-			if num1+num2 == 2020 {
-				fmt.Println("Result 1:", num1*num2, num1, num2)
+	for _, size := range []int{2, 3} {
+		combis := util.Combinations(numbers, size)
+		for _, combi := range combis {
+			if sum(combi...) == 2020 {
+				fmt.Println("For size", size, "product is", prod(combi...))
 			}
-			for _, num3 := range numbers {
-				if num1+num2+num3 == 2020 {
-					fmt.Println("Result 2:", num1*num2*num3, num1, num2, num3)
-				}
-			}
-
 		}
 	}
 }
