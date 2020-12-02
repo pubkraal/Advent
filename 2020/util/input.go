@@ -25,3 +25,19 @@ func GetNumbers(filename string) ([]int, error) {
 	}
 	return numbers, nil
 }
+
+func GetLines(filename string) ([]string, error) {
+	lines := make([]string, 0)
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		lines = append(lines, line)
+	}
+	return lines, nil
+}
