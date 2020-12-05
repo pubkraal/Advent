@@ -24,15 +24,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	seats := make([]Seat, len(lines))
 	seatmap := make(map[int]bool)
 
 	minCode := 9000
 	maxCode := 0
 
-	for idx, line := range lines {
-		seats[idx] = getSeat(line)
-		seatid := seats[idx].SeatID()
+	for _, line := range lines {
+		seatid := getSeat(line).SeatID()
 		if seatid > maxCode {
 			maxCode = seatid
 		}
@@ -54,16 +52,11 @@ func main() {
 }
 
 func getSeat(line string) Seat {
-	row, _ := strconv.ParseInt(
-		strings.Replace(
-			strings.Replace(line[0:7], "B", "1", -1),
-			"F", "0", -1),
-		2, 64)
-	seat, _ := strconv.ParseInt(
-		strings.Replace(
-			strings.Replace(line[7:10], "R", "1", -1),
-			"L", "0", -1),
-		2, 64)
+	r := strings.NewReplacer("B", "1", "R", "1", "F", "0", "L", "0")
+	rline := r.Replace(line)
+
+	row, _ := strconv.ParseInt(rline[:7], 2, 64)
+	seat, _ := strconv.ParseInt(rline[7:], 2, 64)
 
 	return Seat{Row: int(row), Seat: int(seat)}
 }
