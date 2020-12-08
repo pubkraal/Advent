@@ -105,3 +105,6 @@ venv.bak/
 
 # Advent input files
 *.txt
+
+# VSCode
+.vscode
