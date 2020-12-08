@@ -34,12 +34,13 @@ fn main() {
         }
     }
 
-    let acc = run(is, -1);
+    let acc = run(&mut is, -1);
     println!("Step 1: {:?}", acc);
 
     let mut acc2: i32 = 0;
     for pos in swappos {
-        acc2 = run(is, pos);
+        reset(&mut is);
+        acc2 = run(&mut is, pos);
         if acc2 != 0 {
             break;
         }
@@ -47,7 +48,13 @@ fn main() {
     println!("Step 2: {:?}", acc2);
 }
 
-fn run(mut is: Vec<Instruction>, modify: i32) -> i32 {
+fn reset(is: &mut Vec<Instruction>) {
+    for i in is {
+        i.cnt = 0;
+    }
+}
+
+fn run(is: &mut Vec<Instruction>, modify: i32) -> i32 {
     let mut acc: i32 = 0;
     let mut ip: i32 = 0;
 
