@@ -2,15 +2,6 @@
 from collections import defaultdict
 from functools import lru_cache
 
-def valid(line):
-    prev = 0
-    for s in line:
-        d = s-prev
-        if not 1 <= d <= 3:
-            return False
-        prev = s
-    return True
-
 with open("input.txt", "r") as rd:
     d = sorted([int(x) for x in rd.readlines()])
 
