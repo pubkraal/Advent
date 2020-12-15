@@ -2,9 +2,7 @@ use std::collections::HashMap;
 
 fn main() {
     let mut spoken = vec![9,6,0,10,18,2,1];
-
     let end: i32 = 30000001;
-    // let end: i32 = 2021;
 
     let mut last: HashMap<i32, i32> = HashMap::new();
     for (idx, val) in spoken.iter().enumerate() {
@@ -21,7 +19,7 @@ fn main() {
             spoken.push(0);
         }
         last.insert(prev, x-1);
-        
+
         if x == 2020 {
             println!("1: {:?}", prev);
         }
