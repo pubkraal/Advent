@@ -18,9 +18,6 @@ fn main() {
         }
     }
 
-    // Sanity test
-    println!("Number of numbers: {} - {}", numbers.len(), numbers[199]);
-
     // Iterate through combinations, find the first "2020" sum hit
     for comb in numbers.iter().combinations(2) {
         if comb[0] + comb[1] == 2020 {
