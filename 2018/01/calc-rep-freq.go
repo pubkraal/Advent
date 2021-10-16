@@ -8,14 +8,6 @@ import (
 	"strconv"
 )
 
-func main() {
-	if len(os.Args) >= 2 {
-		find_rep_freq(0, os.Args[1])
-	} else {
-		fmt.Println("Please also give us a file to understand....")
-	}
-}
-
 func find_rep_freq(start int, filename string) {
 	changes := build_freq_adjustments(filename)
 	len_ch := len(changes)
@@ -34,7 +26,7 @@ func find_rep_freq(start int, filename string) {
 		found[current] = true
 	}
 
-	fmt.Println("Resulting frequency:", current)
+	fmt.Println("01:2 = ", current)
 }
 
 func build_freq_adjustments(filename string) []int {

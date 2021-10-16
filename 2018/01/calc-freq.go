@@ -11,6 +11,7 @@ import (
 func main() {
 	if len(os.Args) >= 2 {
 		calculate_freq(0, os.Args[1])
+		find_rep_freq(0, os.Args[1])
 	} else {
 		fmt.Println("Please also give us a file to understand....")
 	}
@@ -38,5 +39,5 @@ func calculate_freq(start int, inputfile string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Resulting frequency:", current)
+	fmt.Println("01:1 = ", current)
 }
