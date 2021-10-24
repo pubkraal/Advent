@@ -51,29 +51,11 @@ pub fn run() {
                 }
             }
 
-            let mut val = 1;
-            
-            match houses.get(&(posx, posy)) {
-                Some(h) => val = h + 1,
-                None => (),
-            };
-
-            houses.insert((posx, posy), val);
-
+            houses.insert((posx, posy), 1);
             if idx % 2 == 0 {
-                val = 1;
-                match robohouses.get(&(santaposx, santaposy)) {
-                    Some(h) => val = h + 1,
-                    None => (),
-                }
-                robohouses.insert((santaposx, santaposy), val);
+                robohouses.insert((santaposx, santaposy), 1);
             } else {
-                val = 1;
-                match robohouses.get(&(roboposx, roboposy)) {
-                    Some(h) => val = h + 1,
-                    None => (),
-                }
-                robohouses.insert((roboposx, roboposy), val);
+                robohouses.insert((roboposx, roboposy), 1);
             }
         }
     }
