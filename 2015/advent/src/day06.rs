@@ -11,7 +11,6 @@ pub fn run() {
 
     let tokenizer = Regex::new(r"^([\w\s]+) ([\d]+),([\d]+) through ([\d]+),([\d]+)$").unwrap();
 
-    println!("Starting");
     for line in file.lines() {
         let l: String;
         match line {
