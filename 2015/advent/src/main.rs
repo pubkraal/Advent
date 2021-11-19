@@ -8,6 +8,7 @@ mod day05;
 mod day06;
 mod day07;
 mod day08;
+mod day09;
 
 #[derive(StructOpt)]
 struct Cli {
@@ -34,6 +35,7 @@ fn main() {
         6 => day06::run(),
         7 => day07::run(),
         8 => day08::run(),
+        9 => day09::run(),
         _ => (),
     }
     if args.day == "all" {
@@ -45,5 +47,6 @@ fn main() {
         day06::run();
         day07::run();
         day08::run();
+        day09::run();
     }
 }
