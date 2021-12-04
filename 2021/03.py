@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 from util.aoc import file_to_day
 from util.input import load_data
 
