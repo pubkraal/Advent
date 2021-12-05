@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-FILES=$(echo input/*.txt | egrep -o '[0-9]+' | uniq)
+IFS=$'\n' FILES=($(echo input/*.txt | egrep -o '[0-9]+' | uniq))
 
 for NUM in $FILES; do
-    python3 "$NUM.py"
+    time python3 "$NUM.py"
 done
