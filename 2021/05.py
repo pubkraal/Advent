@@ -26,15 +26,14 @@ def main(test=False):
             for i in range(s, e + 1):
                 vents[(i, x)] += 1
                 dvents[(i, x)] += 1
-        else:
-            if abs(x - x2) == abs(y - y2):
-                s = get_step(y, x, y2, x2)
-                ty, tx = y, x
+        elif abs(x - x2) == abs(y - y2):
+            s = get_step(y, x, y2, x2)
+            ty, tx = y, x
+            dvents[(ty, tx)] += 1
+            while (ty, tx) != (y2, x2):
+                ty += 1 * s[0]
+                tx += 1 * s[1]
                 dvents[(ty, tx)] += 1
-                while (ty, tx) != (y2, x2):
-                    ty += 1 * s[0]
-                    tx += 1 * s[1]
-                    dvents[(ty, tx)] += 1
 
     overlap = sum(v > 1 for v in vents.values())
     overlap2 = sum(v > 1 for v in dvents.values())
