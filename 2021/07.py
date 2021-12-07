@@ -3,7 +3,6 @@
 import sys
 from functools import cache
 from statistics import median, mean
-from math import floor
 
 from util.aoc import file_to_day
 from util.input import load_data
@@ -17,6 +16,8 @@ def main(test=False):
     m = int(median(positions))
     print("2021:07:1 =", sum([abs(x - m) for x in positions]))
     m2 = int(round(mean(positions)))
+
+    # round and floor give unreliable results, we have to test numbers around it
     p2_min = float("inf")
     for t in range(m2 - 1, m2 + 2):
         p2_min = min(sum([fuel_cost(abs(x - t)) for x in positions]), p2_min)
