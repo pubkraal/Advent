@@ -5,13 +5,11 @@ from functools import cache
 from statistics import median, mean
 
 from util.aoc import file_to_day
-from util.input import load_data
+from util.input import load_ints
 
 
 def main(test=False):
-    positions = list(
-        map(int, load_data(file_to_day(__file__), test)[0].strip().split(","))
-    )
+    positions = load_ints(file_to_day(__file__), test)
 
     m = int(median(positions))
     print("2021:07:1 =", sum([abs(x - m) for x in positions]))
