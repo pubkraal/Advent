@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-from itertools import permutations
 from multiprocessing import Pool
 
 from util.aoc import file_to_day
@@ -28,40 +27,68 @@ def calc(line):
 
 def output(feed, result):
     r = result.split()
-    segments = feed.split() + r
-    fs = frozenset
-    for a, b, c, d, e, f, g in permutations(range(7)):
-        digits = {
-            fs((a, b, c, e, f, g)): 0,
-            fs((c, f)): 1,
-            fs((a, c, d, e, g)): 2,
-            fs((a, c, d, f, g)): 3,
-            fs((b, c, d, f)): 4,
-            fs((a, b, d, f, g)): 5,
-            fs((a, b, d, e, f, g)): 6,
-            fs((a, c, f)): 7,
-            fs((a, b, c, d, e, f, g)): 8,
-            fs((a, b, c, d, f, g)): 9,
-        }
-        found = test_key(segments, digits)
-        if not found:
-            continue
+    segments = [frozenset(x) for x in feed.split() + r]
+    digits = dict()
 
-        value = 0
-        for x in r:
-            value = (value * 10) + digits[build_key(x)]
-        return value
+    # These are a given
+    digits[1] = find_first_len(segments, 2)
+    digits[4] = find_first_len(segments, 4)
+    digits[7] = find_first_len(segments, 3)
+    digits[8] = find_first_len(segments, 7)
+
+    # These can be determined
+    digits[0] = next(
+        filter(
+            lambda a: a & digits[4] != digits[4]
+            and a & digits[7] == digits[7],
+            find_len(segments, 6),
+        )
+    )
+    digits[2] = next(
+        filter(
+            lambda a: a & digits[7] != digits[7] and len(a & digits[4]) != 3,
+            find_len(segments, 5),
+        )
+    )
+    digits[3] = next(
+        filter(
+            lambda a: a & digits[7] == digits[7],
+            find_len(segments, 5),
+        )
+    )
+    digits[5] = next(
+        filter(
+            lambda a: a & digits[7] != digits[7] and len(a & digits[4]) == 3,
+            find_len(segments, 5),
+        )
+    )
+    digits[6] = next(
+        filter(
+            lambda a: a & digits[4] != digits[4]
+            and a & digits[7] != digits[7],
+            find_len(segments, 6),
+        )
+    )
+    digits[9] = next(
+        filter(lambda a: a & digits[4] == digits[4], find_len(segments, 6))
+    )
+
+    lookup = {v: k for k, v in digits.items()}
+
+    value = 0
+    for n in r:
+        value *= 10
+        value += lookup[frozenset(n)]
+
+    return value
 
 
-def test_key(segments, digits):
-    for x in segments:
-        if build_key(x) not in digits:
-            return False
-    return True
+def find_first_len(segments, length):
+    return find_len(segments, length)[0]
 
 
-def build_key(numbers):
-    return frozenset(line - ord("a") for line in numbers.encode())
+def find_len(segments, length):
+    return list(filter(lambda a: len(a) == length, segments))
 
 
 if __name__ == "__main__":
