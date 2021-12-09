@@ -32,7 +32,6 @@ def get_basins(hmap):
                 continue
             if p < 9:
                 basins.append(collect_basin(mmap, y, x))
-    print(basins)
     return basins
 
 
