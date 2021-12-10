@@ -1,3 +1,3 @@
 module github.com/pubkraal/Advent
 
-go 1.14
+go 1.17
