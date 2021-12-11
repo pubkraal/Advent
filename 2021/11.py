@@ -1,26 +1,38 @@
 #!/usr/bin/env python3
 
 import sys
+import time
 
 from util.aoc import file_to_day
 from util.input import load_grid
 
 
-def main(test=False):
+def main(test=False, animate=False):
     grid = load_grid(file_to_day(__file__), test)
     count = 0
 
     upper = 2000
+    p1 = 0
+    p2 = 0
 
     for i in range(upper):
+        if animate:
+            print_state(grid, i, count)
         grid = increment(grid)
         flashes, grid = flash(grid, None)
         count += flashes
         if i == 99:
-            print("2021:11:1 =", count)
+            p1 = count
         if all(c == 0 for l in grid for c in l):
-            print("2021:11:2 =", i+1)
+            if animate:
+                print_state(grid, i+1, count)
+            p2 = i+1
             break
+
+    if animate:
+        print("")
+    print("2021:11:1 =", p1)
+    print("2021:11:2 =", p2)
 
 
 def increment(grid):
@@ -58,9 +70,18 @@ def flash(grid, known=None):
     return flashes, grid
 
 
+def print_state(grid, iteration, flashes):
+    print("\033[H\033[2JIteration", iteration)
+    print("Flashes:", flashes)
+    print("")
+    print_grid(grid)
+    time.sleep(0.07)
+
+
 def print_grid(grid):
     for line in grid:
-        print("".join(map(str, line)))
+        pline = "".join(map(str, line))
+        print(pline.replace("0", "\033[1;37m0\033[0m"))
 
 
 def get_adjacent(grid, y, x):
@@ -78,5 +99,6 @@ def get_adjacent(grid, y, x):
     return coords
 
 if __name__ == "__main__":
-    test = len(sys.argv) > 1 and sys.argv[1] == "test"
-    main(test)
+    test = "test" in sys.argv
+    anim = "print" in sys.argv
+    main(test, anim)
