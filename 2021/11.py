@@ -23,10 +23,10 @@ def main(test=False, animate=False):
         count += flashes
         if i == 99:
             p1 = count
-        if all(c == 0 for l in grid for c in l):
+        if all(c == 0 for row in grid for c in row):
             if animate:
-                print_state(grid, i+1, count)
-            p2 = i+1
+                print_state(grid, i + 1, count)
+            p2 = i + 1
             break
 
     if animate:
@@ -36,9 +36,9 @@ def main(test=False, animate=False):
 
 
 def increment(grid):
-    l = len(grid)
-    for y in range(l):
-        for x in range(l):
+    gridlen = len(grid)
+    for y in range(gridlen):
+        for x in range(gridlen):
             grid[y][x] += 1
     return grid
 
@@ -48,9 +48,9 @@ def flash(grid, known=None):
         known = set()
     flashset = set()
     flashes = 0
-    l = len(grid)
-    for y in range(l):
-        for x in range(l):
+    gridlen = len(grid)
+    for y in range(gridlen):
+        for x in range(gridlen):
             if grid[y][x] > 9:
                 grid[y][x] = 0
                 flashes += 1
@@ -64,7 +64,7 @@ def flash(grid, known=None):
                 continue
 
             grid[ay][ax] += 1
-    if any([c > 9 for l in grid for c in l]):
+    if any([c > 9 for row in grid for c in row]):
         f, grid = flash(grid, known)
         flashes += f
     return flashes, grid
@@ -86,17 +86,18 @@ def print_grid(grid):
 
 def get_adjacent(grid, y, x):
     coords = []
-    l = len(grid) - 1
-    for py in range(y-1, y+2):
-        if py < 0 or py > l:
+    gridlen = len(grid) - 1
+    for py in range(y - 1, y + 2):
+        if py < 0 or py > gridlen:
             continue
-        for px in range(x-1, x+2):
-            if px < 0 or px > l:
+        for px in range(x - 1, x + 2):
+            if px < 0 or px > gridlen:
                 continue
             if px == x and py == y:
                 continue
             coords.append((py, px))
     return coords
+
 
 if __name__ == "__main__":
     test = "test" in sys.argv
