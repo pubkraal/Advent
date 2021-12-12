@@ -44,7 +44,7 @@ def main():
 
     oxyp = int("".join(map(str, oxyres)), 2)
     co2p = int("".join(map(str, co2res)), 2)
-    print("2021:03:1 =", oxyp * co2p)
+    print("2021:03:2 =", oxyp * co2p)
 
 
 def build_reg(bits):
