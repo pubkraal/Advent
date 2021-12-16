@@ -29,13 +29,7 @@ func peek(data *[]string, n int) string {
 }
 
 func mustPeekInt(data *[]string, n int) int {
-	pk := peek(data, n)
-	num, err := strconv.ParseInt(pk, 2, 64)
-	if err != nil {
-		panic(err)
-	}
-
-	return int(num)
+	return int(mustParseBin(peek(data, n)))
 }
 
 func parse(instructions *[]string) (sumversions, result int64) {
