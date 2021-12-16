@@ -39,9 +39,7 @@ func mustPeekInt(data *[]string, n int) int {
 }
 
 func parse(instructions *[]string) (sumversions, result int64) {
-	ver := peek(instructions, 3)
-	version, _ := strconv.ParseInt(ver, 2, 16)
-	sumversions += version
+	sumversions += int64(mustPeekInt(instructions, 3))
 
 	typeID := mustPeekInt(instructions, 3)
 	if typeID == 4 {
