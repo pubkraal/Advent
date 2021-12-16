@@ -48,8 +48,7 @@ def find_winners(boards, order):
 def check_winner(board, picked):
     # build rows of columns
     rows = [set(r) for r in board]
-    for c in range(5):
-        rows.append({board[0][c], board[1][c], board[2][c], board[3][c], board[4][c]})
+    rows += [set(c) for c in zip(*board)]
 
     pick = set(picked)
     for r in rows:

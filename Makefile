@@ -1,4 +1,4 @@
-.PHONY: all test 2021
+.PHONY: all test run
 
 2021=$(shell find 2021/input -name *.txt -exec basename {} + | egrep -o '[0-9]+' | sort -n | uniq)
 # 2021=$(shell for name in `echo cmd/2021/*`; do echo "target/2021/$(basename $name)"; done)
