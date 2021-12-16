@@ -61,16 +61,23 @@ func (s *IntSet) Difference(cmp *IntSet) *IntSet {
 
 // Intersection returns a new Set with all elements present in both sets
 func (s *IntSet) Intersection(cmp *IntSet) *IntSet {
-	return s
+	ns := &IntSet{values: make(map[int]bool)}
+	for k := range s.values {
+		if cmp.Contains(k) {
+			ns.Add(k)
+		}
+	}
+	return ns
 }
 
 // Union returns a new Set with all the elements in either set
 func (s *IntSet) Union(cmp *IntSet) *IntSet {
 	ns := &IntSet{values: make(map[int]bool)}
 	for k := range s.values {
-		if cmp.Contains(k) {
-			ns.Add(k)
-		}
+		ns.Add(k)
+	}
+	for k := range cmp.values {
+		ns.Add(k)
 	}
 	return ns
 }
